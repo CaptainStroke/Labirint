@@ -16,7 +16,7 @@ int main()
 	// настройки шрифта консоли
 	CONSOLE_FONT_INFOEX font; // https://docs.microsoft.com/en-us/windows/console/console-font-infoex
 	font.cbSize = sizeof(font);
-	font.dwFontSize.Y = 45;
+	font.dwFontSize.Y = 35;
 	font.FontFamily = FF_DONTCARE;
 	font.FontWeight = FW_NORMAL;
 	wcscpy_s(font.FaceName, 9, L"Consolas");
@@ -144,6 +144,13 @@ int main()
 	SetConsoleTextAttribute(h, Color::DARKRED);
 	cout << "HEALTH: ";
 	SetConsoleTextAttribute(h, Color::RED);
+	cout << health << "\n";
+
+	infobox.Y = 3;
+	SetConsoleCursorPosition(h, infobox);
+	SetConsoleTextAttribute(h, Color::DARKRED);
+	cout << "POWER: ";
+	SetConsoleTextAttribute(h, Color::BLUE);
 	cout << health << "\n";
 
 	while (true)
