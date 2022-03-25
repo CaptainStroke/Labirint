@@ -551,7 +551,7 @@ int main()
 	}
 	
 	// показ лабиринта
-	
+	int meta = 0;
 	for (int y = 0; y < HEIGHT; y++) // перебор строк
 	{
 		for (int x = 0; x < WIDTH; x++) // перебор столбцов
@@ -745,9 +745,32 @@ int main()
 			Sleep(15);
 			///////////////////////////////////////////////////////////////
 			// движение врагов
+			COORD coin_positions[100]; // массив который хранит координаты врагов
+			int coin_count = 0; 
+			for (int y = 0; y < HEIGHT; y++) // перебор строк
+			{
+				for (int x = 0; x < WIDTH; x++) // перебор столбцов
+				{
+					// если очередная ячейка - это враг
+					if (maze[y][x] == MazeObject::COIN)
+					{
+						coin_positions[coin_count].X = x;
+						coin_positions[coin_count].Y = y;
+						coin_count++;
+					}
+				}
+			}
+			if (coin_count == 0)
+			{
+				MessageBoxA(0, "you collected ALL gold!", "WIN!", 0);
+				system("cls");
+				exit(0);
+				// main(); // для запуска сначала, но на другой рандомной локации
+			}
 			COORD enemy_positions[100]; // массив который хранит координаты врагов
 			int enemy_count = 0; // реальное количество врагов на данный момент после шага ГГ
 
+			
 			// перебор всех ячеек которые есть в лабиринте
 			for (int y = 0; y < HEIGHT; y++) // перебор строк
 			{
@@ -770,13 +793,7 @@ int main()
 				// main(); // для запуска сначала, но на другой рандомной локации
 				}
 
-		if (COINS == 0)
-		{
-			MessageBoxA(0, "you killed them!", "WIN!", 0);
-			system("cls");
-			exit(0);
-			// main(); // для запуска сначала, но на другой рандомной локации
-		}
+		
 			// перебор всех врагов
 			for (int i = 0; i < enemy_count; i++)
 			{
