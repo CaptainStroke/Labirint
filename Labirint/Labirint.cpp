@@ -551,7 +551,7 @@ int main()
 	}
 	
 	// показ лабиринта
-	int meta = 0;
+	
 	for (int y = 0; y < HEIGHT; y++) // перебор строк
 	{
 		for (int x = 0; x < WIDTH; x++) // перебор столбцов
@@ -581,7 +581,6 @@ int main()
 			case MazeObject::COIN: // coin - монетка
 				SetConsoleTextAttribute(h, Color::YELLOW);
 				cout << ".";
-				meta++;
 				break;
 
 			case MazeObject::ENEMY: // enemy - враг
@@ -705,7 +704,7 @@ int main()
 			}
 			if (health < 100 && maze[position.Y][position.X] == MazeObject::HEALTHBOX)
 			{
-				health += 10; // на одну монетку собрали больше
+				health = 100; // на одну монетку собрали больше
 				ShowHealth(); // вызов функции (function call)
 				maze[position.Y][position.X] = MazeObject::HALL; // убираем монетку из лабиринта
 			}
