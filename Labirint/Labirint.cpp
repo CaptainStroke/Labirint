@@ -417,6 +417,9 @@
 //	}
 //}
 
+
+//Second task. Number of steps near emoji
+
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
@@ -546,8 +549,9 @@ int main()
 
 		}
 	}
-
+	
 	// показ лабиринта
+	
 	for (int y = 0; y < HEIGHT; y++) // перебор строк
 	{
 		for (int x = 0; x < WIDTH; x++) // перебор столбцов
@@ -577,6 +581,7 @@ int main()
 			case MazeObject::COIN: // coin - монетка
 				SetConsoleTextAttribute(h, Color::YELLOW);
 				cout << ".";
+				meta++;
 				break;
 
 			case MazeObject::ENEMY: // enemy - враг
@@ -596,7 +601,7 @@ int main()
 	position.Y = 2;
 	SetConsoleCursorPosition(h, position);
 	SetConsoleTextAttribute(h, Color::BLUE);
-	cout << (char)2 << steps++;
+	cout << (char)2;// << steps++;
 
 	// количество очков здоровья главного героя
 
@@ -609,6 +614,8 @@ int main()
 	ShowPower();
 
 	ShowSteps();
+
+	
 
 	while (true)
 	{
@@ -675,7 +682,7 @@ int main()
 			// показ ГГ в новой позиции
 			SetConsoleCursorPosition(h, position);
 			SetConsoleTextAttribute(h, Color::BLUE);
-			cout << (char)2;
+			cout << (char)2;// << steps;
 
 			////////////////////////////////////////////////////////////////
 			// пересечение с элементами массива
@@ -694,6 +701,12 @@ int main()
 			{
 				coins++; // на одну монетку собрали больше
 				ShowCoins(); // вызов функции (function call)
+				maze[position.Y][position.X] = MazeObject::HALL; // убираем монетку из лабиринта
+			}
+			if (health < 100 && maze[position.Y][position.X] == MazeObject::HEALTHBOX)
+			{
+				health += 10; // на одну монетку собрали больше
+				ShowHealth(); // вызов функции (function call)
 				maze[position.Y][position.X] = MazeObject::HALL; // убираем монетку из лабиринта
 			}
 
@@ -749,7 +762,21 @@ int main()
 					}
 				}
 			}
+		if (enemy_count == 0)
+				{
+				MessageBoxA(0, "you killed them!", "WIN!", 0);
+				system("cls");
+				exit(0);
+				// main(); // для запуска сначала, но на другой рандомной локации
+				}
 
+		if (COINS == 0)
+		{
+			MessageBoxA(0, "you killed them!", "WIN!", 0);
+			system("cls");
+			exit(0);
+			// main(); // для запуска сначала, но на другой рандомной локации
+		}
 			// перебор всех врагов
 			for (int i = 0; i < enemy_count; i++)
 			{
@@ -831,6 +858,7 @@ int main()
 					cout << (char)1;
 					maze[enemy_positions[i].Y + 1][enemy_positions[i].X] = MazeObject::ENEMY;
 				}
+				
 			}
 		}
 	}
